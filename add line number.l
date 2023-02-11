@@ -1,15 +1,18 @@
 %{
 #include<stdio.h>
+int ln=0;
 %}
+
 %%
 
-"="|"+"|"-"|"/"|"*" { printf("valid");}
-.+ {printf("invalid");}
+.* {ln++; fprintf(yyout,"\n%d:%s",ln,yytext);}
 %%
 int yywrap(){}
+
 int main()
 {
-printf("enter the input:");
+yyin=fopen("simple.txt","r");
+yyout=fopen("out.txt","w");
 yylex();
 return 0;
 }
